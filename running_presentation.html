@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>달리기와 체중 감량 전략 - 원페이지 프레젠테이션</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 16:9 Presentation Canvas */
+    .slide-canvas {
+      width: 100%;
+      max-width: 1440px;
+      min-height: 900px;
+      background: radial-gradient(circle at top left, #1e293b, #0f172a 70%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle background grid pattern */
+    .bg-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      transition: all 0.25s ease-in-out;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(14, 165, 233, 0.15);
+    }
+
+    .highlight-pill {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        color: #0f172a;
+      }
+      .slide-canvas {
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+        background: #ffffff;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="p-2 sm:p-6">
+
+  <!-- Main 16:9 Presentation Slide Container -->
+  <div class="slide-canvas bg-grid rounded-2xl p-6 sm:p-10 flex flex-col justify-between">
+    
+    <!-- Top Action Bar (Print / Fullscreen) -->
+    <div class="no-print absolute top-5 right-6 flex items-center gap-2 z-20">
+      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-slate-800/80 hover:bg-slate-700 rounded-lg border border-slate-700 flex items-center gap-1.5 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+        PDF/인쇄
+      </button>
+      <button onclick="toggleFullscreen()" class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-slate-800/80 hover:bg-slate-700 rounded-lg border border-slate-700 flex items-center gap-1.5 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5v4m0-4h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+        전체화면
+      </button>
+    </div>
+
+    <!-- Header Section -->
+    <header class="mb-6">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="highlight-pill text-sky-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+          Scientific Fat-Loss Blueprint
+        </span>
+        <span class="text-xs text-slate-400">지속 가능한 러닝 & 체지방 감량 솔루션</span>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
+            <span class="text-emerald-400">🏃 달리기와 체중 감량</span>
+            <span class="text-slate-400 font-light text-2xl hidden sm:inline">|</span>
+            <span class="text-slate-300 text-xl sm:text-2xl font-semibold">성공을 위한 3대 핵심 전략</span>
+          </h1>
+          <p class="text-sm sm:text-base text-slate-400 mt-1">
+            "무작정 빨리 뛰지 말고, 스마트하게 태우자" — 심박수, 부상 방지, 에너지 적자의 과학적 결합
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top Key Metrics Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="glass-card p-4 border-l-4 border-l-sky-500">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">지방 1kg 감량 기준</div>
+        <div class="text-2xl sm:text-3xl font-black text-sky-400 mt-1">-7,700 <span class="text-xs font-normal text-slate-400">kcal</span></div>
+        <div class="text-xs text-slate-400 mt-0.5">하루 500kcal 적자 = 월 2kg 순수 감량</div>
+      </div>
+      <div class="glass-card p-4 border-l-4 border-l-emerald-500">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">최적 지방 연소 구간</div>
+        <div class="text-2xl sm:text-3xl font-black text-emerald-400 mt-1">Zone 2 <span class="text-xs font-normal text-slate-400">HR</span></div>
+        <div class="text-xs text-slate-400 mt-0.5">최대 심박수의 60~70% (대화 가능 페이스)</div>
+      </div>
+      <div class="glass-card p-4 border-l-4 border-l-amber-500">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">무릎 충격 완화 케이던스</div>
+        <div class="text-2xl sm:text-3xl font-black text-amber-400 mt-1">165~175 <span class="text-xs font-normal text-slate-400">SPM</span></div>
+        <div class="text-xs text-slate-400 mt-0.5">짧은 보폭(Short Stride)으로 관절 보호</div>
+      </div>
+      <div class="glass-card p-4 border-l-4 border-l-rose-500">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">성공 기여 비율</div>
+        <div class="text-2xl sm:text-3xl font-black text-rose-400 mt-1">식단 8 : 운동 2</div>
+        <div class="text-xs text-slate-400 mt-0.5">운동 후 '보상 심리 과식' 원천 차단</div>
+      </div>
+    </div>
+
+    <!-- Main Content 3-Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 mb-6">
+      
+      <!-- Column 1: Heart Rate & FatMax -->
+      <div class="glass-card p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-sm">1</div>
+            <h3 class="text-lg font-bold text-white">지방 연소율 극대화 (FatMax)</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            달리기의 속도가 무조건 빠르다고 지방이 많이 타지 않습니다. 중강도(Zone 2)에서 지방 산화 효율이 최고점에 달합니다.
+          </p>
+
+          <!-- Zone Comparison Bar Visual -->
+          <div class="space-y-3 mb-4">
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300 font-medium">Zone 1 (가벼운 산책)</span>
+                <span class="text-slate-400">지방 80% / 탄수화물 20%</span>
+              </div>
+              <div class="w-full bg-slate-700/50 h-2 rounded-full overflow-hidden flex">
+                <div class="bg-blue-400 h-full" style="width: 80%"></div>
+                <div class="bg-amber-400 h-full" style="width: 20%"></div>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-emerald-400 font-bold">Zone 2 (지방 연소 최적 구간 ★)</span>
+                <span class="text-emerald-400 font-semibold">지방 65% / 탄수 35%</span>
+              </div>
+              <div class="w-full bg-slate-700/50 h-2.5 rounded-full overflow-hidden flex">
+                <div class="bg-emerald-400 h-full" style="width: 65%"></div>
+                <div class="bg-amber-400 h-full" style="width: 35%"></div>
+              </div>
+              <div class="text-[11px] text-emerald-300 mt-1.5 flex items-center gap-1">
+                ✔ 총 에너지 소비량과 지방 연소 비율의 교차 최적점!
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-slate-300 font-medium">Zone 4~5 (고강도 전력질주)</span>
+                <span class="text-slate-400">지방 15% / 탄수화물 85%</span>
+              </div>
+              <div class="w-full bg-slate-700/50 h-2 rounded-full overflow-hidden flex">
+                <div class="bg-blue-400 h-full" style="width: 15%"></div>
+                <div class="bg-amber-400 h-full" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/60 p-3 rounded-lg border border-slate-700/50 text-xs">
+          <span class="text-sky-400 font-semibold">💡 체감 기준:</span> "옆 사람과 약간 가쁜 호흡으로 연속 대화가 가능한 속도"로 유지하세요.
+        </div>
+      </div>
+
+      <!-- Column 2: Injury Prevention & 4-Week Roadmap -->
+      <div class="glass-card p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">2</div>
+            <h3 class="text-lg font-bold text-white">과체중 부상 방지 & 4주 로드맵</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            착지 시 무릎 관절에는 <strong class="text-amber-300">체중의 3~5배 충격</strong>이 실립니다. 처음부터 계속 달리지 말고 **런-워크(Run-Walk)**로 시작해야 합니다.
+          </p>
+
+          <!-- 4-Week Progress Timeline -->
+          <div class="space-y-2.5 text-xs mb-3">
+            <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-800/40 border border-slate-700/40">
+              <span class="px-2 py-0.5 rounded bg-sky-900/60 text-sky-300 font-bold text-[11px]">1주차</span>
+              <span class="text-slate-300">걷기 3분 + 조깅 1분 × 6세트 (총 24분)</span>
+            </div>
+            <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-800/40 border border-slate-700/40">
+              <span class="px-2 py-0.5 rounded bg-sky-900/60 text-sky-300 font-bold text-[11px]">2주차</span>
+              <span class="text-slate-300">걷기 2분 + 조깅 2분 × 6세트 (적응기)</span>
+            </div>
+            <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-800/40 border border-slate-700/40">
+              <span class="px-2 py-0.5 rounded bg-sky-900/60 text-sky-300 font-bold text-[11px]">3주차</span>
+              <span class="text-slate-300">걷기 1분 + 조깅 4분 × 5세트 (체류시간 증대)</span>
+            </div>
+            <div class="flex items-center gap-3 p-2 rounded-lg bg-emerald-900/40 border border-emerald-500/40">
+              <span class="px-2 py-0.5 rounded bg-emerald-700 text-white font-bold text-[11px]">4주차</span>
+              <span class="text-emerald-200 font-semibold">30분 연속 조깅 달성! (Zone 2 페이스)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-[11px]">
+          <div class="bg-slate-800/60 p-2 rounded border border-slate-700 text-slate-300">
+            👟 <strong>맥스 쿠션화/안정화</strong> 착용
+          </div>
+          <div class="bg-slate-800/60 p-2 rounded border border-slate-700 text-slate-300">
+            🦵 <strong>스쿼트·카프레이즈</strong> 주 2회
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Diet & Interactive Mini Calculator -->
+      <div class="glass-card p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-sm">3</div>
+            <h3 class="text-lg font-bold text-white">식단 원칙 & 심박수 계산기</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            "5km 뛰어도 라떼 한 잔이면 칼로리 상쇄!" 단백질 섭취($1.2\text{g} \sim 1.6\text{g}/\text{kg}$)로 근손실을 방어하세요.
+          </p>
+
+          <!-- Interactive Calculator Widget -->
+          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-700 space-y-2.5">
+            <div class="text-xs font-bold text-sky-400 flex items-center justify-between">
+              <span>🧮 맞춤 Zone 2 목표 심박수</span>
+              <span class="text-[11px] text-slate-400">실시간 계산</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="text-[11px] text-slate-400 block mb-0.5">나이 (세)</label>
+                <input id="userAge" type="number" value="30" min="15" max="80" 
+                  class="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-sky-500"
+                  oninput="calculateZone2()">
+              </div>
+              <div>
+                <label class="text-[11px] text-slate-400 block mb-0.5">체중 (kg)</label>
+                <input id="userWeight" type="number" value="70" min="40" max="150" 
+                  class="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-sky-500"
+                  oninput="calculateZone2()">
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-sky-950/40 border border-sky-500/30 flex justify-between items-center">
+              <div>
+                <div class="text-[11px] text-slate-400">목표 Zone 2 심박수</div>
+                <div id="targetHR" class="text-base font-extrabold text-sky-300">114 ~ 133 bpm</div>
+              </div>
+              <div class="text-right">
+                <div class="text-[11px] text-slate-400">30분 조깅 소모</div>
+                <div id="burnCalories" class="text-base font-extrabold text-emerald-400">약 280 kcal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/60 p-2.5 rounded-lg border border-slate-700/50 text-xs text-slate-300 mt-3">
+          <span class="text-rose-400 font-semibold">⚠️ 공복 유산소:</span> 저강도 30~40분 조깅만 추천 (과도한 고강도 공복 시 코르티솔 분비 및 근손실 유발).
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Key Takeaway Banner -->
+    <footer class="glass-card p-4 bg-gradient-to-r from-sky-950/60 via-slate-900/80 to-emerald-950/60 border border-slate-700/80">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black">
+            ✓
+          </div>
+          <div>
+            <div class="font-bold text-white">결론: 요요 없는 체중 감량 성공 공식</div>
+            <div class="text-xs text-slate-400">"Zone 2 중강도 페이스로 지방 태우기 + 주 3~4회 꾸준한 지속 + 고단백 식단 결손"</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-slate-400 font-mono">
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">Pace: Easy</span>
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">Frequency: 3-4x/wk</span>
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-emerald-400">Injury-Free</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Realtime Zone 2 Heart Rate & Calorie Calculation
+    function calculateZone2() {
+      const age = parseInt(document.getElementById('userAge').value) || 30;
+      const weight = parseInt(document.getElementById('userWeight').value) || 70;
+
+      // Max Heart Rate formula (Fox formula: 220 - Age)
+      const maxHR = 220 - age;
+      const zone2Low = Math.round(maxHR * 0.60);
+      const zone2High = Math.round(maxHR * 0.70);
+
+      // Estimated 30-min Jogging calories (~8 km/h is approx 8 METs: 8 * weight * 0.5 hours)
+      const estimatedCalories = Math.round(8 * weight * 0.5);
+
+      document.getElementById('targetHR').innerText = `${zone2Low} ~ ${zone2High} bpm`;
+      document.getElementById('burnCalories').innerText = `약 ${estimatedCalories} kcal`;
+    }
+
+    // Fullscreen toggle helper
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Initial calculation on load
+    calculateZone2();
+  </script>
+</body>
+</html>
